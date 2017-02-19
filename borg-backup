@@ -1,0 +1,32 @@
+#!/bin/sh
+#!/bin/bash
+
+main () {
+
+	local readonly REPOSITORY=borgbackup@192.168.1.33:/mnt/ext_usb/borg-backup
+	local readonly N_TITLE="BORG"
+	local readonly N_ICON="disks"
+	
+	# notification
+	notify-send -t 5000 -i $N_ICON $N_TITLE "started at $(date +%H:%M)"
+
+	local OUTPUT=$(borg create --compression zlib,4 -v --stats $REPOSITORY::'{hostname}-{now:%Y-%m-%d}' \
+		/home/faebser/Documents/ \
+		/home/faebser/workspace/ \
+		/home/faebser/sync \
+		/home/faebser/Pictures /home/faebser/Books 2>&1) 
+	
+	echo "$OUTPUT"
+
+	echo "$OUTPUT" | grep -i "Duration" | xargs -0 notify-send -t 5000 -i $N_ICON $N_TITLE
+
+	# Use the `prune` subcommand to maintain 7 daily, 4 weekly and 6 monthly
+	# archives of THIS machine. The '{hostname}-' prefix is very important to
+	# limit prune's operation to this machine's archives and not apply to
+	# other machine's archives also.
+	borg prune -v --list $REPOSITORY --prefix '{hostname}-' \
+		--keep-daily=7 --keep-weekly=4 --keep-monthly=6
+}
+
+main
+
