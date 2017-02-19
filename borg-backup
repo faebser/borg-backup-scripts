@@ -3,6 +3,9 @@
 
 main () {
 
+	export BORG_PASSPHRASE=$(<BORG_PASSPHRASE)
+	export BORG_RSH="ssh -i ~/.ssh/borgbackup"
+
 	local readonly REPOSITORY=borgbackup@192.168.1.33:/mnt/ext_usb/borg-backup
 	local readonly N_TITLE="BORG"
 	local readonly N_ICON="disks"
