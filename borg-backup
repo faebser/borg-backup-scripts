@@ -9,6 +9,8 @@ main () {
 	local readonly REPOSITORY=borgbackup@192.168.1.33:/mnt/ext_usb/borg-backup
 	local readonly N_TITLE="BORG"
 	local readonly N_ICON="disks"
+
+	echo "$PWD"
 	
 	# notification
 	notify-send -t 5000 -i $N_ICON $N_TITLE "started at $(date +%H:%M)"
