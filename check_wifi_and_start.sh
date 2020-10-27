@@ -8,8 +8,8 @@ main () {
 	local readonly TARGET_SSID="e5a814ffa839fc84fb30bd27175968a484ad8b94d4970dd6d45694bd871392f2"
 
 	if [ $SSID == $TARGET_SSID ]; then
-		echo "found correct wifi"
-    	#/usr/bin/borgmatic --files -c /home/faebser/workspace/borg-backup-scripts/borgmatic.yaml
+		echo "Correct network"
+    	/usr/bin/borgmatic --files -c /home/faebser/workspace/borg-backup-scripts/borgmatic.yaml
 	else
 	    echo "Wrong network"
 	    exit 1
