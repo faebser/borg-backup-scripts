@@ -3,6 +3,10 @@ Description=Borg Backup
 
 [Service]
 ExecStart=/usr/bin/borg-backup
+RestartSec=10min
+StartLimitBurst=5
+StartLimitIntervalSec=55min
+Restart=on-failure
 
 [Install]
 WantedBy=default.target

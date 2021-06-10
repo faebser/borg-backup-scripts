@@ -12,6 +12,7 @@ main () {
     	/usr/bin/borgmatic --files -c /home/faebser/workspace/borg-backup-scripts/borgmatic.yaml
 	else
 	    echo "Wrong network"
+	    notify-send -t 5000 -i disks Borg "Wrong network, trying again in 10 minutes"
 	    exit 1
 	fi
 }

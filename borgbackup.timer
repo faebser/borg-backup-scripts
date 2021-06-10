@@ -2,7 +2,7 @@
 Description=Run borgbackup daily at eight
 
 [Timer]
-OnCalendar=20:00
+OnCalendar=22:00
 Persistent=true     
  
 [Install]

@@ -134,7 +134,7 @@ storage:
     # encryption. Quote the value if it contains punctuation, so
     # it parses correctly. And backslash any quote or backslash
     # literals as well. Defaults to not set.
-    encryption_passphrase: "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+    encryption_passphrase: "sWFOpjm94Kb8We7xYuvl9TFlnHvuGMi9TUDt4kQKngPXVwfW35dEQ5aCPwwv9meAU7Qo0qtJ3hVpvxpzXHgkv2uftxI32yp1DHHt"
 
     # Number of seconds between each checkpoint during a
     # long-running backup. See
@@ -266,7 +266,7 @@ retention:
 # https://borgbackup.readthedocs.io/en/stable/usage/check.html and
 # https://borgbackup.readthedocs.io/en/stable/usage/extract.html for
 # details.
-# consistency:
+consistency:
     # List of one or more consistency checks to run: "repository",
     # "archives", "data", and/or "extract". Defaults to
     # "repository" and "archives". Set to "disabled" to disable
@@ -291,7 +291,7 @@ retention:
     # Restrict the number of checked archives to the last n.
     # Applies only to the "archives" check. Defaults to checking
     # all archives.
-    # check_last: 3
+    check_last: 3
 
     # When performing the "archives" check, only consider archive
     # names starting with this prefix. Borg placeholders can be
@@ -312,11 +312,11 @@ retention:
 # forget to set secure permissions on this configuration file (chmod
 # 0600) as well as on any script called from a hook (chmod 0700) to
 # prevent potential shell injection or privilege escalation.
-# hooks:
+hooks:
     # List of one or more shell commands or scripts to execute
     # before creating a backup, run once per configuration file.
-    # before_backup:
-        # - echo "Starting a backup."
+    before_backup:
+        - notify-send -t 5000 -i disks Borg "started at $(date +%H:%M)"
 
     # List of one or more shell commands or scripts to execute
     # before pruning, run once per configuration file.
@@ -335,8 +335,8 @@ retention:
 
     # List of one or more shell commands or scripts to execute
     # after creating a backup, run once per configuration file.
-    # after_backup:
-        # - echo "Finished a backup."
+    after_backup:
+        - notify-send -t 5000 -i disks Borg "finished at $(date +%H:%M)"
 
     # List of one or more shell commands or scripts to execute
     # after pruning, run once per configuration file.
@@ -356,8 +356,8 @@ retention:
     # List of one or more shell commands or scripts to execute
     # when an exception occurs during a "prune", "create", or
     # "check" action or an associated before/after hook.
-    # on_error:
-        # - echo "Error during prune/create/check."
+    on_error:
+        - notify-send -t 5000 -i disks Borg "Error during prune/create/check."
 
     # List of one or more shell commands or scripts to execute
     # before running all actions (if one of them is "create").
